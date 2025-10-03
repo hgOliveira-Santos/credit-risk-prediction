@@ -1,7 +1,29 @@
+from pathlib import Path
 import os
 
-PROJECT_DIR = os.getcwd()
-RAW_DATA_DIR = os.path.join(PROJECT_DIR, 'data', 'raw')
+# URL do arquivo zip do German Credit Data
+GERMAN_CREDIT_ZIP_URL = "https://archive.ics.uci.edu/static/public/144/statlog+german+credit+data.zip"
+
+# Nome do arquivo .data que será salvo
+GERMAN_CREDIT_DATA = "german_credit.data"
+
+# --- Definição de Caminhos---
+PROJECT_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = PROJECT_DIR / 'data'
+RAW_DATA_DIR = DATA_DIR / 'raw'
+PROCESSED_DATA_DIR = DATA_DIR / 'processed'
+
+# Cria as pastas data, data/raw e data/processed se não existirem
+def _create_directories():
+    """
+    Cria os diretórios necessários para armazenar os dados brutos e processados.
+    """
+    os.makedirs(DATA_DIR, exist_ok=True)
+    os.makedirs(RAW_DATA_DIR, exist_ok=True)
+    os.makedirs(PROCESSED_DATA_DIR, exist_ok=True)
+
+_create_directories()
+
 
 # Renomeia as colunas de acordo com a documentação
 COLUMN_NAMES = [
