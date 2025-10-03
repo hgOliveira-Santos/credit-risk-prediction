@@ -3,7 +3,7 @@ import os
 PROJECT_DIR = os.getcwd()
 RAW_DATA_DIR = os.path.join(PROJECT_DIR, 'data', 'raw')
 
-# Rename the columns according to the documentation
+# Renomeia as colunas de acordo com a documentação
 COLUMN_NAMES = [
     'checking_account_status',
     'duration_in_month',
