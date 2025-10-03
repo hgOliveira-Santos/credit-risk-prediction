@@ -1,5 +1,18 @@
+.venv/
 .env
 
-data
-info.md
-folder_structure.md
+data/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.ipynb_checkpoints/
+
+.vscode/
+.idea/
+
+build/
+dist/
+*.egg-info/
+
