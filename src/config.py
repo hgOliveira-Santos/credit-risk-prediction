@@ -49,3 +49,35 @@ COLUMN_NAMES = [
     'foreign_worker',
     'risk'
 ]
+
+# --- Definição de Tipos de Colunas ---
+# Colunas numéricas (valores contínuos e discretos)
+NUMERIC_COLUMNS = [
+    'duration_in_month',
+    'credit_amount',
+    'installment_rate_percent',
+    'present_residence_since',
+    'age_in_years',
+    'number_of_existing_credits',
+    'number_of_dependents'
+]
+
+# Colunas categóricas (valores categóricos/ordinais)
+CATEGORICAL_COLUMNS = [
+    'checking_account_status',
+    'credit_history',
+    'purpose',
+    'savings_account_bonds',
+    'present_employment_since',
+    'personal_status_and_sex',
+    'other_debtors_guarantors',
+    'property',
+    'other_installment_plans',
+    'housing',
+    'job',
+    'telephone',
+    'foreign_worker'
+]
+
+# Coluna target
+TARGET_COLUMN = 'risk'
