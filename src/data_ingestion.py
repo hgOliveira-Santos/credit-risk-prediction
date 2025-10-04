@@ -1,11 +1,12 @@
-
+from typing import List
 import pandas as pd
 import requests
 import zipfile
 import os
 from io import BytesIO
 import config
-from urllib3 import response 
+import shutil
+
 
 def ingest_credit_data(url: str) -> pd.DataFrame:
     
@@ -15,8 +16,10 @@ def ingest_credit_data(url: str) -> pd.DataFrame:
     data_filename = config.GERMAN_CREDIT_DATA
     processed_filepath = os.path.join(processed_data_dir, data_filename)
 
-    # 2. Download do arquivo.
-    res = download_zip_file(url, raw_data_dir)
+    # 2. Download do arquivo e extração do arquivo .data
+    if download_zip_file(url, raw_data_dir):
+        if extract_data_file_from_zip(data_filename, raw_data_dir, processed_data_dir):
+            return load_data_file(processed_filepath)
 
 
 def download_zip_file(url: str, destination_folder: str) -> bool:
@@ -44,5 +47,40 @@ def download_zip_file(url: str, destination_folder: str) -> bool:
         return False
 
 
-def extract_datafile_from_zip(filename: str, file_path: str, destination_folder: str, file_extension: str = ".data") -> str:
-    return
+def extract_data_file_from_zip(filename: str, source_folder_path: str, destination_folder_path: str, file_extension: str = ".data") -> bool:
+    try:
+        for found_filename in os.listdir(source_folder_path):
+            if found_filename.endswith(file_extension):
+                source_filepath = os.path.join(source_folder_path, found_filename)
+                renamed_source_filepath = os.path.join(source_folder_path, filename)
+
+                if os.path.exists(renamed_source_filepath):
+                    os.remove(renamed_source_filepath)
+                os.rename(source_filepath, renamed_source_filepath)
+                
+                os.makedirs(destination_folder_path, exist_ok=True)
+                
+                final_destination_filepath = os.path.join(destination_folder_path, filename)
+                
+                if os.path.exists(final_destination_filepath):
+                    os.remove(final_destination_filepath)
+                shutil.move(renamed_source_filepath, final_destination_filepath)
+            
+            else:
+                filepath_to_delete = os.path.join(source_folder_path, found_filename)
+                if os.path.isfile(filepath_to_delete):
+                    os.remove(filepath_to_delete)
+    except Exception as e:
+        print(f"Ocorreu um erro ao extrair e mover o arquivo .data: {e}")
+        return False
+
+    return True
+
+def load_data_file(data_file_path: str, column_names: List = config.COLUMN_NAMES) -> pd.DataFrame:
+    return pd.read_csv(
+        data_file_path,
+        sep=r'\s+',
+        header=None,
+        names=column_names,
+        encoding='latin1'
+    )
