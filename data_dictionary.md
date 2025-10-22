@@ -36,12 +36,3 @@
 | `risk` | Categórica (Alvo)| **Variável Alvo:** Classificação de risco de crédito. | `1`: Bom Risco<br>`2`: Mau Risco |
 
 ---
-
-## Transformações Realizadas no Projeto
-
-Esta seção deve ser atualizada conforme você trabalha nos dados.
-
-- **Variável `risk`:** Mapeada de `{1: 'bom', 2: 'mau'}` para `{0, 1}` respectivamente, para uso em modelos de classificação. `0` representa 'Bom Risco' e `1` representa 'Mau Risco'.
-- **Variáveis Categóricas:** As colunas com códigos (ex: 'A11', 'A34') foram convertidas em variáveis numéricas usando a técnica de *One-Hot Encoding* para evitar a criação de uma ordem artificial entre as categorias.
-- **Engenharia de Features:** Nenhuma nova feature foi criada até o momento.
-- **Colunas Removidas:** Nenhuma coluna foi removida.
