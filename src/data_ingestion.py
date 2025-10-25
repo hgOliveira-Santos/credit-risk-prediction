@@ -11,7 +11,7 @@ import sys
 
 
 # ==============================================================================
-# Configuração do Logger (A FORMA CORRETA)
+# Configuração do Logger
 # ==============================================================================
 
 logger = logging.getLogger(__name__)
